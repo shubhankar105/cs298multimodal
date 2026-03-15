@@ -1,0 +1,46 @@
+# Core ML
+torch>=2.2.0
+torchaudio>=2.2.0
+transformers>=4.38.0
+datasets>=2.18.0
+accelerate>=0.27.0
+
+# MLX (Apple Silicon optimized Whisper)
+mlx>=0.8.0
+mlx-whisper>=0.2.0
+
+# Audio Processing
+librosa>=0.10.1
+soundfile>=0.12.1
+praat-parselmouth>=0.4.3
+opensmile>=2.5.0
+webrtcvad>=2.0.10
+
+# Prosodic Analysis
+scipy>=1.12.0
+PyWavelets>=1.5.0
+
+# Text Processing
+sentencepiece>=0.2.0
+tokenizers>=0.15.0
+
+# Training Utilities
+wandb>=0.16.0
+pyyaml>=6.0
+omegaconf>=2.3.0
+scikit-learn>=1.4.0
+pandas>=2.2.0
+numpy>=1.26.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+tqdm>=4.66.0
+
+# Evaluation
+jiwer>=3.0.0
+
+# Demo
+gradio>=4.19.0
+pyaudio>=0.2.14
+
+# Testing
+pytest>=8.0.0

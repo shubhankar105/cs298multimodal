@@ -1,0 +1,45 @@
+{
+  "emotion": "sad",
+  "confidence": 0.3032,
+  "probabilities": {
+    "angry": 0.2658,
+    "happy": 0.1967,
+    "sad": 0.3032,
+    "neutral": 0.2342
+  },
+  "transcript": ". . .",
+  "gate_weights": {
+    "text": 0.454,
+    "audio": 0.546
+  },
+  "attention_entropy": [
+    0.5091,
+    0.5212,
+    0.4362,
+    0.6173,
+    0.4851,
+    0.4088,
+    0.3569,
+    0.4982,
+    0.5602,
+    0.2689,
+    0.6167,
+    0.6648
+  ],
+  "attention_entropy_mean": 0.4953,
+  "interpretation": "Low confidence (30%) prediction of 'sad'. Model used both text and vocal cues roughly equally. Text is linguistically clear (low attention entropy).",
+  "text_prediction": "neutral",
+  "audio_prediction": "happy",
+  "text_probabilities": {
+    "angry": 0.2525,
+    "happy": 0.2388,
+    "sad": 0.2467,
+    "neutral": 0.262
+  },
+  "audio_probabilities": {
+    "angry": 0.2571,
+    "happy": 0.2671,
+    "sad": 0.2375,
+    "neutral": 0.2383
+  }
+}

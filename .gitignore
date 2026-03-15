@@ -1,0 +1,47 @@
+# Data
+data/raw/
+data/processed/
+data/splits/*.json
+
+# Model checkpoints
+checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Weights & Biases
+wandb/
+
+# Logs
+*.log
+logs/
+data/raw/
+data/processed/
+checkpoints/
+mera_env/
+processed_features.zip

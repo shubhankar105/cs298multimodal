@@ -1,0 +1,29 @@
+# MERA configuration overrides for Google Colab (CUDA).
+#
+# Inherits all defaults from default.yaml and only overrides
+# settings that differ on CUDA / Colab.
+#
+# Usage:
+#   python scripts/train_pipeline_a.py --config configs/colab.yaml
+
+base_config: "default.yaml"
+
+device: "cuda"
+whisper_backend: "huggingface"
+
+data:
+  pin_memory: true
+
+pipeline_a:
+  goemotion_batch_size: 64
+  finetune_batch_size: 32
+
+pipeline_b:
+  batch_size: 32
+
+fusion:
+  batch_size: 24
+
+end_to_end:
+  batch_size: 16
+  gradient_accumulation: 2

@@ -1,0 +1,121 @@
+seed: 42
+device: "auto"
+whisper_backend: "mlx"
+
+# --- Data ---
+data:
+  max_audio_duration_sec: 15.0
+  sample_rate: 16000
+  n_mels: 128
+  hop_length: 160
+  win_length: 400
+  n_fft: 512
+  f_min: 20
+  f_max: 8000
+  num_prosodic_channels: 10
+  num_hubert_layers: 25
+  hubert_dim: 1024
+  pin_memory: false
+
+# --- Pipeline A (Text) ---
+pipeline_a:
+  model_name: "microsoft/deberta-v3-base"
+  max_text_length: 128
+  hidden_dim: 256
+  dropout: 0.3
+  freeze_layers: 6
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+
+  # GoEmotions pre-training
+  goemotion_epochs: 3
+  goemotion_batch_size: 32
+
+  # IEMOCAP fine-tuning
+  finetune_epochs: 15
+  finetune_batch_size: 16
+
+# --- Pipeline B (Audio) ---
+pipeline_b:
+  # Stream 1: CNN-BiLSTM
+  cnn_channels: [32, 64, 128, 128]
+  lstm_hidden: 128
+  lstm_layers: 2
+
+  # Stream 2: Prosodic TCN (NOVEL)
+  tcn_channels: 64
+  tcn_blocks: 6
+  tcn_kernel_size: 5
+  prosodic_output_dim: 128
+
+  # Stream 3: HuBERT Head
+  hubert_output_dim: 256
+
+  # SE Fusion
+  se_reduction: 4
+
+  learning_rate: 1.0e-3
+  weight_decay: 1.0e-4
+  epochs: 30
+  batch_size: 16
+
+# --- Fusion ---
+fusion:
+  embed_dim: 256
+  cross_attention_heads: 4
+  modality_dropout_prob: 0.3
+  learning_rate: 5.0e-4
+  weight_decay: 1.0e-4
+  epochs: 20
+  batch_size: 16
+
+# --- End-to-End Fine-tuning ---
+end_to_end:
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  epochs: 5
+  batch_size: 8
+  gradient_accumulation: 4
+  gradient_checkpointing: true
+  unfreeze_deberta_layers: 2
+
+# --- Loss ---
+loss:
+  lambda_primary: 1.0
+  lambda_aux_text: 0.3
+  lambda_aux_audio: 0.3
+  lambda_consistency: 0.2
+  label_smoothing: 0.1
+
+# --- Scheduler ---
+scheduler:
+  type: "cosine_warmup"
+  warmup_ratio: 0.1
+  min_lr_ratio: 0.01
+
+# --- Early Stopping ---
+early_stopping:
+  patience: 7
+  metric: "ua"
+  mode: "max"
+
+# --- Augmentation ---
+augmentation:
+  noise_prob: 0.5
+  noise_snr_range: [10, 30]
+  time_stretch_prob: 0.3
+  time_stretch_range: [0.9, 1.1]
+  pitch_shift_prob: 0.3
+  pitch_shift_range: [-2, 2]
+  spec_augment:
+    freq_mask_param: 15
+    time_mask_param: 50
+    n_freq_masks: 2
+    n_time_masks: 2
+
+# --- Logging ---
+logging:
+  use_wandb: true
+  project_name: "mera-emotion"
+  log_every_n_steps: 10
+  save_every_n_epochs: 1
